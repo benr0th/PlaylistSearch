@@ -1,0 +1,52 @@
+:root {
+  --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #181a1b;
+}
+
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * .5);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 0);
+  }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.footer-link {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+.form-control {
+    color: rgb(189, 183, 175);
+    background-color: rgb(24, 26, 27);
+    border-color: rgb(129, 120, 106);
+}
+
+html, body, input, textarea, select, button {
+  background-color: #181a1b;
+  color: #e8e6e3
+}

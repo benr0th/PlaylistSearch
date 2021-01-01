@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% block content %}
+<script>
+    window.addEventListener("load", myInit, true); function myInit() {
+        getLiked();
+        showList();
+    }
+    $(window).on('search', function() {
+        let input = document.getElementById('search').value;
+        results = Object.values(videos).filter(t => t[0].toUpperCase().includes(input.toUpperCase()));
+        filtered = Object.keys(videos).reduce(function(r, e) {
+            if (results.includes(videos[e])) r[e] = videos[e]
+            return r;
+        }, {})
+    });
+</script>
+<div id="page-inner">
+
+</div>
+<div class="container">
+<div class="row">
+    {% raw %}
+    <script id="requests-template" type="text/x-handlebars-template">
+    <div class="block-grid-md-3">
+      {{#each requests}}
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <img class="card-img-top" alt="" src="{{ this.[1] }}"
+                   focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+              <div class="card-body">
+                <p id="channel" class="card-text">{{ this.[2] }}</p>
+                <p id="title" class="card-text">{{ this.[0] }}</p>
+                <div class="d-flex justify-content-center align-items-center">
+                  <div class="btn-group">
+                    <a type="button" id="pl_link" target="_blank" href="https://www.youtube.com/watch?v={{ @key }}" class="btn btn-sm btn-outline-secondary">View</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      {{/each}}
+    </div>
+    </script>
+    {% endraw %}
+</div>
+</div>
+<script>
+function showList() {
+    $(window).on('search', function() {
+        let requestInfo = document.getElementById('requests-template').innerHTML;
+
+        let template = Handlebars.compile(requestInfo);
+        let requestData = template({
+            requests: filtered
+        })
+        $('#page-inner').html(requestData);
+    })
+}
+</script>
+{% endblock %}

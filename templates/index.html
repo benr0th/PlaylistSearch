@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-site-verification" content="JEtGSRyAdpl700W7DsG9jTvZEPR-19V1P0ZCU2WObRg" />
+    <title>Playlist Search</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css" integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap-block-grid@latest/dist/bootstrap4-block-grid.min.css">
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="{{ url_for('static', filename='album.css') }}" rel="stylesheet">
+    <script src="{{url_for('static', filename='playlistsearch.js') }}"></script>
+    <script async src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.js"></script>
+    <script>
+      function initClient() {
+          // Initialize the gapi.client object, which app uses to make API requests.
+          // Get API key and client ID from API Console.
+          // 'scope' field specifies space-delimited list of access scopes.
+          gapi.client.init({
+              apiKey: '{{config['YOUTUBE_API_KEY']}}',
+              clientId: '{{config['CLIENT_ID']}}',
+              discoveryDocs: [discoveryUrl],
+              scope: scope,
+            }).then(function () {
+              GoogleAuth = gapi.auth2.getAuthInstance();
+
+              // Listen for sign-in state changes.
+              GoogleAuth.isSignedIn.listen(updateSignInStatus);
+
+              // Handle initial sign-in state. (Determine if user is already signed in.)
+              setSignInStatus();
+
+              // Call handleAuthClick function when user clicks on
+              //      "Sign In/Authorize" button.
+              $("#sign-in-or-out-button").on("click", function () {
+                handleAuthClick()
+              })
+
+              $("#revoke-access-button").on("click", function () {
+                revokeAccess()
+              })
+            })
+        }
+      {% if request.path == '/' %}
+      //Adds the playlists to an object on load and displays them
+      window.addEventListener("load", myInit, true); function myInit() {
+        $(window).scrollTop();
+        frontPage()
+      }
+      {% endif %}
+      // Press enter to search feature
+      window.addEventListener('load', function() {
+        document.querySelector("#searchField").addEventListener("keyup", event => {
+            if(event.key !== "Enter") return; // Use `.key` instead.
+            document.querySelector("#searchButton").click(); // Things you want to do.
+            event.preventDefault(); // No need to `return false;`.
+        })
+      });
+  </script>
+  </head>
+<body>
+<main role="main">
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Search YouTube™ Playlists</h1>
+      <p class="lead text-muted">Log in to your YouTube™ account to search your YouTube™ playlist videos by their title.</p>
+    {% if request.path == '/' %}
+    <button id="sign-in-or-out-button"
+        style="margin-left: 25px">Sign In/Authorize</button>
+    <button id="revoke-access-button"
+        style="display: none; margin-left: 25px">Revoke access</button>
+    <button id="demo" style="display: none; margin-left: 25px" onclick="demoPlaylists(); showPlaylist()">Demo</button>
+    {% endif %}
+
+    <div id="auth-status" style="display: inline; padding-left: 25px"></div><hr>
+      <div class="input-group mb-3">
+      <!-- If on homepage, search playlists, otherwise search videos -->
+          {% if request.path == '/' %}
+            <input type="text" id="searchField" name="query" class="form-control" placeholder="Search playlists">
+            <input type="button" id="searchButton" value="Search" onclick="searchPlaylist()">
+          {% else %}
+            <input type="text" id="searchField" name="query" class="form-control" placeholder="Search videos">
+            <input type="button" id="searchButton" value="Search" onclick="searchVideo()">
+          {% endif %}
+      </div>
+    {% if request.path == '/' %}
+        <a href="" onclick="showPlaylist(); return false">Show All Playlists</a>
+    {% else %}
+        <a href="" style="margin-right: 25px" onclick="showVideos(); return false">Show All Videos</a>
+        <a href="/">Go Back</a>
+    {% endif %}
+    </div>
+  <br>
+  <!-- Displays the playlist name on the page -->
+  <h3 id="pl_name"></h3>
+  <!-- Displays total playlists/videos -->
+  <p id="total" style="margin-bottom:5px"></p>
+  </section>
+  <div>
+  {% block content %}
+  <!-- Area for playlists to display -->
+    <div id="page-inner">
+
+    </div>
+  <!-- Loops through the playlist object and creates card for each one -->
+    {% raw %}
+    <script id="requests-template" type="text/x-handlebars-template">
+    <div class="container">
+    <div class="row">
+      {{#each requests}}
+          <div class="col-sm-3">
+            <div class="card mb-4 box-shadow">
+              <img class="card-img-top" alt="" src="{{ this.[1] }}"
+                   focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+              <div class="card-body">
+                <p id="pl_title" class="card-text">{{ this.[0] }}</p>
+                <div class="d-flex justify-content-center align-items-center">
+                  <div class="btn-group">
+                    <a type="button" id="pl_link" href="/playlist/{{ @key }}/{{ this.[0] }}" class="card-link">View</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      {{/each}}
+    </div>
+    </div>
+    </script>
+    {% endraw %}
+  </div>
+{% endblock %}
+</main>
+</body>
+<footer class="text-muted">
+  <div class="container">
+  <div style="display: flex; justify-content: center">
+    <a href="#" class="footer-link">Back to top</a>
+    <a href="/privacy" class="footer-link">Privacy Policy</a>
+    <a href="/terms" class="footer-link">Terms</a>
+  </div>
+  </div>
+</footer>
+</html>

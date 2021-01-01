@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+{% block content %}
+<script>
+    window.addEventListener("load", myInit, true); function myInit() {
+        //Adds the videos of the playlist to an object upon load
+        getVideos();
+        //Displays the playlist name using the url
+        let match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query  = window.location.pathname
+        urlParams = {};
+        while (match = search.exec(query))
+           urlParams[decode(match[1])] = decode(match[2]);
+        document.getElementById('pl_name').innerHTML = Object.keys(urlParams)[0].split('/')[3]
+    }
+</script>
+<!-- Area for videos to display -->
+<div id="page-inner">
+
+</div>
+    <!-- Loops through the search results and creates card for each one -->
+    {% raw %}
+    <script id="requests-template" type="text/x-handlebars-template">
+    <div class="container">
+    <div class="row">
+      {{#each requests}}
+          <div class="col-sm-3">
+            <div class="card mb-4 box-shadow">
+              <img class="card-img-top" alt="" src="{{ this.[1] }}"
+                   focusable="false" role="img" aria-label="Placeholder: Thumbnail"/>
+              <div class="card-body">
+                <p id="pl_title" class="card-text">{{ this.[0] }}</p>
+                <div class="d-flex justify-content-center align-items-center">
+                  <div class="btn-group">
+                    <a type="button" id="pl_link" target="_blank" href="https://www.youtube.com/watch?v={{ @key }}" class="card-link">View</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      {{/each}}
+    </div>
+    </div>
+    </script>
+    {% endraw %}
+{% endblock %}
