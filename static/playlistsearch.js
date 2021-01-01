@@ -72,12 +72,12 @@ function getPlaylists(next_page_token) {
             // Handle the results here (response.result has the parsed body).
             let result = response.result;
             let items = result["items"];
+            //Adds Liked Playlist to the object
+            pl_list['LL'] = ['Liked Videos', 'https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png']
             //Loop through all playlists, add to object
             for (let i = 0; i < items.length; i++) {
                 pl_list[items[i].id] = [items[i].snippet.title, items[i].snippet.thumbnails.high.url]
             }
-            //Adds Liked Playlist to the object
-            pl_list['LL'] = ['Liked Videos', 'https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png']
             //If there are more than 50, keep adding until none left
             if (typeof result['nextPageToken'] !== "undefined") {
                 getPlaylists(result['nextPageToken'])
