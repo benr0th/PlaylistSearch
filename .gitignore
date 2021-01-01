@@ -109,8 +109,7 @@ venv/Lib/site-packages/pyasn1/codec/ber/__pycache__/
 venv/Lib/site-packages/pyasn1/codec/cer/__pycache__/
 venv/Lib/site-packages/pyasn1/codec/der/__pycache__/
 venv/Lib/site-packages/pyasn1/codec/native/__pycache__/
-Wou
-ld remove venv/Lib/site-packages/pyasn1/compat/__pycache__/
+venv/Lib/site-packages/pyasn1/compat/__pycache__/
 venv/Lib/site-packages/pyasn1/type/__pycache__/
 venv/Lib/site-packages/pyasn1_modules/__pycache__/
 venv/Lib/site-packages/pyjsparser-2.7.1-py3.7.egg-info/
@@ -175,7 +174,4 @@ venv/Lib/site-packages/whoosh/util/__pycache__/
 .idea/sonarlint/
 venv/Lib/site
 -packages/oauthlib/oauth2/rfc6749/endpoints/__pycache__/
-Would r
-emove venv/Lib/site-packages/pyasn1/codec/native/__pycache__/
-venv/Lib/site-packages/pyasn1/compat/__pycache__/
 !/.env
