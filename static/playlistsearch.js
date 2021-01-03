@@ -16,6 +16,7 @@ function clear() {
     //Removes playlists from the front page
     pl_list = {};
     $('#page-inner').html(pl_list)
+    $('#total').html('')
 }
 
 function handleAuthClick() {
@@ -123,7 +124,7 @@ function getVideos(playlistID, next_page_token) {
     playlistID = playlist_url[2];
     if (typeof gapi.client.youtube !== "undefined") {
         return gapi.client.youtube.playlistItems.list({
-            "part": ["snippet"],
+            "part": ["snippet,contentDetails"],
             "maxResults": 50,
             "playlistId": playlistID,
             "pageToken": next_page_token
@@ -135,9 +136,9 @@ function getVideos(playlistID, next_page_token) {
             for (let i = 0; i < items.length; i++) {
                 //If there is no thumbnail, give it a default YT logo picture instead
                 if (typeof items[i].snippet.thumbnails == "undefined" || typeof items[i].snippet.thumbnails.high == "undefined") {
-                    videos[items[i].snippet.resourceId.videoId] = [items[i].snippet.title, 'https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png']
+                    videos[items[i].snippet.resourceId.videoId] = [items[i].snippet.title, 'https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png', items[i].contentDetails.duration]
                 } else {
-                    videos[items[i].snippet.resourceId.videoId] = [items[i].snippet.title, items[i].snippet.thumbnails.high.url]
+                    videos[items[i].snippet.resourceId.videoId] = [items[i].snippet.title, items[i].snippet.thumbnails.high.url, items[i].contentDetails.duration]
                 }
             }
             //Keep getting videos until none left
@@ -233,3 +234,5 @@ function searchPlaylist() {
         $('#page-inner').html(requestData);
     }
 }
+
+
