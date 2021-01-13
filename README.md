@@ -3,7 +3,7 @@ Sign in to your YouTube™ account to show your playlists, click the playlist an
 
 Due to YouTube™'s API restrictions there is a 5000 video limit per playlist, so unfortunately any videos that are past the 5000 mark in the playlist will not show up in the search.
 
-Youtube™ does not allow developers to access your "Watch Later" your "History" playlists, so this will not work on those playlists.
+YouTube™ does not allow developers to access your "Watch Later" or "History" playlists, so this will not work on those playlists.
 
 Uses Flask to create the webpage and routes, the search function and all YouTube™ API processes are done with JavaScript. Search results and playlists are displayed using Handlebars.
 
