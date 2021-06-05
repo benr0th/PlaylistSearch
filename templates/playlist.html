@@ -4,7 +4,7 @@
     window.addEventListener("load", myInit, true); function myInit() {
         //Adds the videos of the playlist to an object upon load
         getVideos();
-        //Displays the playlist name using the url
+        //Displays the playlist name using the url, removes URL encode
         let match,
             pl     = /\+/g,  // Regex for replacing addition symbol with a space
             search = /([^&=]+)=?([^&]*)/g,
