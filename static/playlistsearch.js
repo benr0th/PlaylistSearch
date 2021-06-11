@@ -76,8 +76,8 @@ function getPlaylists(next_page_token) {
             //Adds Liked Playlist to the object
             pl_list['LL'] = ['Liked Videos', 'https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png']
             //Loop through all playlists, add to object
-            for (let i = 0; i < items.length; i++) {
-                pl_list[items[i].id] = [[i].snippet.title, items[i].snippet.thumbnails.high.url]
+            for (const item of items) {
+                pl_list[item.id] = [item.snippet.title, item.snippet.thumbnails.high.url]
             }
             //If there are more than 50, keep adding until none left
             if (typeof result['nextPageToken'] !== "undefined") {
