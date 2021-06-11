@@ -84,7 +84,7 @@ function getPlaylists(next_page_token) {
                 getPlaylists(result['nextPageToken'])
             }
             //Displays total number of Playlists
-            let total = result["pageInfo"]["totalResults"]
+            let total = result["pageInfo"]["totalResults"] + 1
             document.getElementById('total').innerHTML = total + " Playlists"
             console.log("Response", response)
         }, function (err) {
