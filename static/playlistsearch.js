@@ -108,8 +108,8 @@ function demoPlaylists() {
         let result = response.result;
         let items = result["items"];
         //Loop through all playlists, add to object
-        for (let i = 0; i < items.length; i++) {
-            pl_list[items[i].id] = [items[i].snippet.title, items[i].snippet.thumbnails.high.url]
+        for (const item of items) {
+            pl_list[item.id] = [item.snippet.title, item.snippet.thumbnails.high.url]
         }
         console.log("Response", response)
     }, function (err) {
@@ -133,12 +133,12 @@ function getVideos(playlistID, next_page_token) {
             let result = response.result;
             let items = result["items"];
             //Loop through all videos from playlist, add to object
-            for (let i = 0; i < items.length; i++) {
+            for (const item of items) {
                 //If there is no thumbnail, give it a default YT logo picture instead
-                if (typeof items[i].snippet.thumbnails == "undefined" || typeof items[i].snippet.thumbnails.high == "undefined") {
-                    videos[items[i].snippet.resourceId.videoId] = [items[i].snippet.title, 'https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png', items[i].contentDetails.duration]
+                if (typeof item.snippet.thumbnails == "undefined" || typeof item.snippet.thumbnails.high == "undefined") {
+                    videos[item.snippet.resourceId.videoId] = [item.snippet.title, 'https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png', item.contentDetails.duration]
                 } else {
-                    videos[items[i].snippet.resourceId.videoId] = [items[i].snippet.title, items[i].snippet.thumbnails.high.url, items[i].contentDetails.duration]
+                    videos[item.snippet.resourceId.videoId] = [item.snippet.title, item.snippet.thumbnails.high.url, item.contentDetails.duration]
                 }
             }
             //Keep getting videos until none left
