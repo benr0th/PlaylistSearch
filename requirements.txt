@@ -5,9 +5,9 @@ chardet==4.0.0
 click==8.0.1
 Flask==2.0.1
 gapi==1.2.0
-google-api-core==1.29.0
-google-api-python-client==2.7.0
-google-auth==1.30.1
+google-api-core==1.30.0
+google-api-python-client==2.9.0
+google-auth==1.31.0
 google-auth-httplib2==0.1.0
 google-auth-oauthlib==0.4.4
 googleapis-common-protos==1.53.0
@@ -20,7 +20,7 @@ Jinja2==3.0.1
 jsonify==0.5
 MarkupSafe==2.0.1
 oauthlib==3.1.1
-protobuf==3.17.2
+protobuf==3.17.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pybars3==0.9.7
