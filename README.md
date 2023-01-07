@@ -1,5 +1,5 @@
 # PlaylistSearch
-Live website URL: http://www.playlistsearch.xyz
+Live website URL: https://brothstudios.pythonanywhere.com
 
 Sign in to your YouTube™ account to show your playlists, click the playlist and then search for any video in that playlist. 
 
