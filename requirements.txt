@@ -33,5 +33,5 @@ six==1.16.0
 sngrams==0.2.0
 tweet-parser==1.13.2
 uritemplate==4.1.1
-urllib3==1.26.7
+urllib3==1.26.17
 Werkzeug==2.2.3
