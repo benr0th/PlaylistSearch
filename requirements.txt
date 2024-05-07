@@ -16,7 +16,7 @@ httplib2==0.20.2
 idna==3.3
 isodate==0.6.0
 itsdangerous==2.0.1
-Jinja2==3.0.3
+Jinja2==3.1.4
 jsonify==0.5
 MarkupSafe==2.0.1
 oauthlib==3.2.2
