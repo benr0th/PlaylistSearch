@@ -35,3 +35,4 @@ tweet-parser==1.13.2
 uritemplate==4.1.1
 urllib3==1.26.19
 Werkzeug==2.2.3
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
