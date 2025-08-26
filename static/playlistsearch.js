@@ -148,6 +148,7 @@ function getVideos(playlistID, next_page_token) {
             //Displays total number of videos
             let total = result["pageInfo"]["totalResults"]
             document.getElementById('total').innerHTML = total + " Videos"
+            showVideos();
             console.log("Response", response)
         }, function(err) {
             console.error("Execute error", err)
